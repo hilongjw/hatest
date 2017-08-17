@@ -15,6 +15,5 @@ test_job:
      - npm config set loglevel=silly
     #  - npm install 1>/dev/null 2>/dev/null
      - npm i 1>/dev/null 2>/dev/null
-     - npm install mocha@latest --save-dev 1>/dev/null 2>/dev/null
     #  - npm run test
      - npm run test:ci
