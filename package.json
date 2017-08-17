@@ -1,6 +1,6 @@
 {
   "name": "hatest",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A node API testing tool similar to Supertest, based on Axios.",
   "main": "lib/hatest.js",
   "scripts": {
