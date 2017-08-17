@@ -1,8 +1,8 @@
+![hatest](https://ww1.sinaimg.cn/large/69402bf8ly1fimw13f2lrj21jg0c20vf.jpg)
+
 # HaTest
 
 A node API testing tool similar to Supertest, based on Axios.
-
-![hatest](https://ww1.sinaimg.cn/thumbnail/69402bf8gy1fimpgfmv6wj20qi0q8q4h.jpg)
 
 ## Getting Started
 
