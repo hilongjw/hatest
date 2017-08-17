@@ -13,7 +13,5 @@ test_job:
    stage: test
    script:
      - npm config set loglevel=silly
-    #  - npm install 1>/dev/null 2>/dev/null
-     - npm i 1>/dev/null 2>/dev/null
-    #  - npm run test
-     - npm run test:ci
+     - npm install --registry=http://registry.npm.luojilab.com/ 1>/dev/null 2>/dev/null
+     - npm run test
