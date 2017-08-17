@@ -1,0 +1,20 @@
+image: mhart/alpine-node:7.10.0
+
+before_script:
+  - whoami
+  - node -v
+  - npm -v
+
+stages:
+- test
+
+
+test_job:
+   stage: test
+   script:
+     - npm config set loglevel=silly
+    #  - npm install 1>/dev/null 2>/dev/null
+     - npm install --production 1>/dev/null 2>/dev/null
+     - npm install mocha@latest --save-dev 1>/dev/null 2>/dev/null
+    #  - npm run test
+     - npm run test:ci

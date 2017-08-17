@@ -1,0 +1,22 @@
+{
+  "name": "hatest",
+  "version": "0.1.0",
+  "description": "node api test tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/runner.js"
+  },
+  "keywords": [
+    "node",
+    "test"
+  ],
+  "author": "Awe",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.16.2"
+  },
+  "devDependencies": {
+    "express": "^4.15.4",
+    "mocha": "^3.5.0"
+  }
+}
