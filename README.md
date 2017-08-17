@@ -19,8 +19,8 @@ Once installed it can now be referenced by simply calling require('hatest')
 Hatest works with mocha, here is an example:
 
 ```javascript
-const hatest = require('hatest');
-const express = require('express');
+const hatest = require('hatest')
+const express = require('express')
  
 describe('simple', function() {
     it('test1', function () {
@@ -36,7 +36,6 @@ describe('simple', function() {
             .end()
     })
 })
-
 ```
 
 ## Notes

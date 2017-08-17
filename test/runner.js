@@ -169,7 +169,7 @@ describe('request(url)', function() {
 
 describe('.<http verb> works as expected', function() {
     it('.delete should work', function(done) {
-        var app = express()
+        const app = express()
         app.delete('/', function(req, res) {
             res.sendStatus(200)
         })
@@ -179,7 +179,7 @@ describe('.<http verb> works as expected', function() {
             .expect(200, done)
     })
     it('.del should work', function(done) {
-        var app = express()
+        const app = express()
         app.delete('/', function(req, res) {
             res.sendStatus(200)
         })
@@ -189,7 +189,7 @@ describe('.<http verb> works as expected', function() {
             .expect(200, done)
     })
     it('.get should work', function(done) {
-        var app = express()
+        const app = express()
         app.get('/', function(req, res) {
             res.sendStatus(200)
         })
@@ -199,7 +199,7 @@ describe('.<http verb> works as expected', function() {
             .expect(200, done)
     })
     it('.post should work', function(done) {
-        var app = express()
+        const app = express()
         app.post('/', function(req, res) {
             res.sendStatus(200)
         })
@@ -209,7 +209,7 @@ describe('.<http verb> works as expected', function() {
             .expect(200, done)
     })
     it('.put should work', function(done) {
-        var app = express()
+        const app = express()
         app.put('/', function(req, res) {
             res.sendStatus(200)
         })
@@ -219,7 +219,7 @@ describe('.<http verb> works as expected', function() {
             .expect(200, done)
     })
     // it('.head should work', function(done) {
-    //     var app = express()
+    //     const app = express()
     //     app.head('/', function(req, res) {
     //         res.statusCode = 200
     //         res.set('Content-Encoding', 'gzip')
@@ -259,7 +259,7 @@ describe('assert type and status', function() {
     })
 
     it('assert json body as string', function(done) {
-        var app = express()
+        const app = express()
 
         app.set('json spaces', 0)
 
@@ -294,7 +294,7 @@ describe('assert type and status', function() {
     })
 
     it('assert the fields', function(done) {
-        var app = express()
+        const app = express()
 
         app.set('json spaces', 0)
 
@@ -313,7 +313,7 @@ describe('assert type and status', function() {
     })
 
     it('expect function', function () {
-        var app = express()
+        const app = express()
 
         app.get('/', function(req, res) {
             res.status(200).json({})
@@ -329,37 +329,35 @@ describe('assert type and status', function() {
                 res.data.second = 2
             })
             .end(function (err, res) {
-                if (err) return done(err)
                 assert.ok(res.data.a === 1, 'res.data.first should.be 1')
                 assert.ok(res.data.second === 2, 'res.data.first should.be 2')
             })
     })
 
     it('should call expect(fn) and expect(status, fn) in order', function () {
-        var app = express()
+        const app = express()
 
-        app.get('/', function(req, res) {
+        app.get('/', function (req, res) {
             res.status(200).json({})
         })
 
         return request(app)
             .get('/')
             .expect(function(res) {
-                res.body.first = 1
+                res.data.first = 1
             })
-            .expect(200, function(err, res) {
-                assert.ok(!!err, 'err should be null')
-                assert.ok(res.body.first === 1, 'res.body.first should.be 1')
+            .expect(200)
+            .expect(res => {
+                assert.ok(res.data.first === 1, 'res.body.first should.be 1')
             })
+            .end()
     })
 
     it('should call expect(fn) and expect(header,value) in order', function(done) {
-        var app = express()
+        const app = express()
 
         app.get('/', function(req, res) {
-            res
-                .set('X-Some-Header', 'Some value')
-                .send()
+            res.set('X-Some-Header', 'Some value').send()
         })
 
         request(app)
@@ -373,7 +371,7 @@ describe('assert type and status', function() {
     })
 
     it('should call expect(fn) and expect(body) in order', function() {
-        var app = express()
+        const app = express()
 
         app.get('/', function(req, res) {
             res.json({ somebody: 'some body value' })
@@ -404,7 +402,7 @@ describe('assert type and status', function() {
 
 describe('request.get(url).query(vals) works as expected', function() {
     it('normal single query string value works', function(done) {
-        var app = express()
+        const app = express()
         app.get('/', function(req, res) {
             res.status(200).send(req.query.val)
         })
@@ -416,7 +414,7 @@ describe('request.get(url).query(vals) works as expected', function() {
     })
 
     it('array query string value works', function () {
-        var app = express()
+        const app = express()
         app.get('/', function(req, res) {
             res.status(200).send(Array.isArray(req.query.val))
         })
@@ -431,7 +429,7 @@ describe('request.get(url).query(vals) works as expected', function() {
     })
 
     it('array query string value work even with single value', function () {
-        var app = express()
+        const app = express()
         app.get('/', function(req, res) {
             res.status(200).send(Array.isArray(req.query.val))
         })
@@ -446,7 +444,7 @@ describe('request.get(url).query(vals) works as expected', function() {
     })
 
     it('object query string value works', function () {
-        var app = express()
+        const app = express()
         app.get('/', function (req, res) {
             res.status(200).send(req.query.val.test)
         })
