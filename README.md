@@ -1,4 +1,4 @@
-![hatest](https://ww1.sinaimg.cn/large/69402bf8ly1fimw13f2lrj21jg0c20vf.jpg)
+![hatest](https://ws3.sinaimg.cn/mw690/006tNc79gy1fimw78nfjnj31jg0c2417.jpg)
 
 # HaTest
 
