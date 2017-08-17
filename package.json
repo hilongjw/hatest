@@ -1,7 +1,7 @@
 {
   "name": "hatest",
   "version": "0.1.0",
-  "description": "node api test tool",
+  "description": "A node API testing tool similar to Supertest, based on Axios.",
   "main": "index.js",
   "scripts": {
     "test": "mocha test/runner.js"

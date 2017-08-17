@@ -1,6 +1,6 @@
 # HaTest
 
-Something like superagent make HTTP assertions easy.
+A node API testing tool similar to Supertest, based on Axios.
 
 ![hatest](https://ww1.sinaimg.cn/thumbnail/69402bf8gy1fimpgfmv6wj20qi0q8q4h.jpg)
 
