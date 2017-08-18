@@ -112,7 +112,8 @@ describe('request(url)', function() {
             .get('/')
             .end()
             .catch(err => {
-                // console.log(err)
+                assert.ok(err instanceof Error, 'should be socket error')
+                assert.equal(err.message, 'socket hang up', 'should be socket hang up')
             })
     })
 
@@ -307,7 +308,7 @@ describe('assert type and status', function() {
             .expect('content-type', /html/)
             .end(function(err, res) {
                 assert.ok(err instanceof Error)
-                assert.ok(err.message === 'expected content-type matching /html/, got application/json; charset=utf-8')
+                assert.equal(err.message, 'expected content-type matching /html/, got application/json; charset=utf-8')
                 done()
             })
     })
@@ -325,12 +326,12 @@ describe('assert type and status', function() {
                 res.data.a = 1
             })
             .expect(function(res) {
-                assert.ok(res.data.a === 1, 'res.data.a === 1 should.be true')
+                assert.equal(res.data.a, 1)
                 res.data.second = 2
             })
             .end(function (err, res) {
-                assert.ok(res.data.a === 1, 'res.data.first should.be 1')
-                assert.ok(res.data.second === 2, 'res.data.first should.be 2')
+                assert.equal(res.data.a, 1)
+                assert.equal(res.data.second, 2)
             })
     })
 
@@ -348,7 +349,7 @@ describe('assert type and status', function() {
             })
             .expect(200)
             .expect(res => {
-                assert.ok(res.data.first === 1, 'res.body.first should.be 1')
+                assert.equal(res.data.first, 1)
             })
             .end()
     })
@@ -421,10 +422,11 @@ describe('request.get(url).query(vals) works as expected', function() {
 
         return request(app)
             .get('/')
-            .query({ 'val[]': ['Test1', 'Test2'] })
-            .expect(200, function(err, res) {
-                assert.ok(res.req.path === '/?val%5B%5D=Test1&val%5B%5D=Test2')
-                assert.ok(res.data === 'true')
+            .query({ 'val': ['Test1', 'Test2'] })
+            .expect(200)
+            .end(function(err, res) {
+                assert.equal(res.request.path, '/?val[]=Test1&val[]=Test2')
+                assert.equal(res.data, true)
             })
     })
 
@@ -436,24 +438,27 @@ describe('request.get(url).query(vals) works as expected', function() {
 
         return request(app)
             .get('/')
-            .query({ 'val[]': ['Test1'] })
-            .expect(200, function (err, res) {
-                assert.ok(res.path === '/?val%5B%5D=Test1', 'res.path === /?val%5B%5D=Test1 should be true')
-                assert.ok(res.text === 'true', 'res.text === true')
+            .query({ 'val': ['Test1'] })
+            .expect(200)
+            .end(function (err, res) {
+                assert.equal(res.request.path, '/?val[]=Test1')
+                assert.equal(res.data, true)
             })
     })
 
     it('object query string value works', function () {
         const app = express()
         app.get('/', function (req, res) {
-            res.status(200).send(req.query.val.test)
+            let val = JSON.parse(req.query.val)
+            res.status(200).send(val.test)
         })
 
         return request(app)
             .get('/')
             .query({ val: { test: 'Test1' } })
-            .expect(200, function(err, res) {
-                assert.ok(res.data === 'Test1')
+            .expect(200)
+            .end(function(err, res) {
+                assert.equal(res.data, 'Test1')
             })
     })
 })
