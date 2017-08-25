@@ -54,6 +54,12 @@ describe('simple', function() {
 
 - .end(fn)
 
+- .end({
+    somefield: String,
+    arr: Array,
+    obj: Object
+})
+
 ## Notes
 
 Inspired by [supertest](https://github.com/visionmedia/supertest).
