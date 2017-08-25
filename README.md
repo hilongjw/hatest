@@ -19,7 +19,7 @@ Once installed it can now be referenced by simply calling require('hatest')
 Hatest works with mocha, here is an example:
 
 ```javascript
-const hatest = require('hatest')
+const request = require('hatest')
 const express = require('express')
  
 describe('simple', function() {
