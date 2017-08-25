@@ -15,7 +15,8 @@ describe('request(url)', function() {
 
         request(app)
             .get('/')
-            .expect('hello', done)
+            .expect('hello')
+            .end(done)
     })
 
     it('expect status', function() {
@@ -149,7 +150,8 @@ describe('request(url)', function() {
 
         request(app)
             .get('/')
-            .expect("{ foo: 'bar' }", done)
+            .expect("{ foo: 'bar' }")
+            .end(done)
     })
 
     it('should assert response body multiple times with no exception', function(done) {
@@ -163,7 +165,8 @@ describe('request(url)', function() {
             .get('/')
             .expect(/tj/)
             .expect(/^hey/)
-            .expect('hey tj', done)
+            .expect('hey tj')
+            .end(done)
     })
 })
 
@@ -177,7 +180,8 @@ describe('.<http verb> works as expected', function() {
 
         request(app)
             .delete('/')
-            .expect(200, done)
+            .expect(200)
+            .end(done)
     })
     it('.del should work', function(done) {
         const app = express()
@@ -187,7 +191,8 @@ describe('.<http verb> works as expected', function() {
 
         request(app)
             .del('/')
-            .expect(200, done)
+            .expect(200)
+            .end(done)
     })
     it('.get should work', function(done) {
         const app = express()
@@ -197,7 +202,8 @@ describe('.<http verb> works as expected', function() {
 
         request(app)
             .get('/')
-            .expect(200, done)
+            .expect(200)
+            .end(done)
     })
     it('.post should work', function(done) {
         const app = express()
@@ -207,7 +213,8 @@ describe('.<http verb> works as expected', function() {
 
         request(app)
             .post('/')
-            .expect(200, done)
+            .expect(200)
+            .end(done)
     })
     it('.put should work', function(done) {
         const app = express()
@@ -217,7 +224,8 @@ describe('.<http verb> works as expected', function() {
 
         request(app)
             .put('/')
-            .expect(200, done)
+            .expect(200)
+            .end(done)
     })
     // it('.head should work', function(done) {
     //     const app = express()
@@ -256,6 +264,32 @@ describe('assert type and status', function() {
             .expect(500)
             .end({
                 message: String
+            })
+    })
+
+    it('agent assert status ', function () {
+        const app = express()
+        const agent = request.agent(app)
+
+        app.get('/', function(req, res) {
+            res.status(500).json({ message: 'something went wrong' })
+        })
+        app.get('/path', function(req, res) {
+            res.status(200).json({ message: 'something went wrong' })
+        })
+
+        return agent
+            .get('/')
+            .expect(500)
+            .end({
+                message: String
+            })
+            .then(res => {
+                return agent.get('/path')
+                .expect(200)
+                .end({
+                    message: String
+                })
             })
     })
 
@@ -411,7 +445,8 @@ describe('request.get(url).query(vals) works as expected', function() {
         request(app)
             .get('/')
             .query({ val: 'Test1' })
-            .expect('Test1', done)
+            .expect('Test1')
+            .end(done)
     })
 
     it('array query string value works', function () {

@@ -38,7 +38,24 @@ describe('simple', function() {
 })
 ```
 
+## API
+
+- .expect(200)
+
+- .expect(200, body)
+
+- .expect('Some body')
+
+- .expect({ someStr: String })
+
+- .expect('Content-Type', 'application/json')
+
+- .expect(fn)
+
+- .end(fn)
+
 ## Notes
 
 Inspired by [supertest](https://github.com/visionmedia/supertest).
+
 
